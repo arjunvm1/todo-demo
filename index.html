@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Todo List</h2>
+        <!-- Add Task -->
+        <form id="taskForm">
+            <input type="text" placeholder="Add task..." name="name" id="taskInput"/>
+            <button type="button" onclick="addTask()">Add</button>
+        </form>
+        <!-- Todo list -->
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+       // Function to add a new task
+function addTask() {
+  var taskInput = document.getElementById("taskInput");
+  var taskList = document.getElementById("taskList");
+
+  if (taskInput.value.trim() !== "") {
+      var li = document.createElement("li");
+      var taskText = document.createElement("span");
+      taskText.textContent = taskInput.value;
+      li.appendChild(taskText);
+
+      var editButton = document.createElement("button");
+      editButton.style.marginRight="240px";
+      editButton.textContent = "Edit";
+     
+      editButton.onclick = function () {
+          editTask(li);
+      };
+      li.appendChild(editButton);
+
+      var deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = function () {
+          taskList.removeChild(li);
+      };
+      li.appendChild(deleteButton);
+
+      taskList.appendChild(li);
+      taskInput.value = "";
+  }
+}
+
+// Function to edit a task
+function editTask(li) {
+  var taskText = li.querySelector('span');
+  var newText = prompt("Edit task:", taskText.textContent);
+
+  if (newText !== null && newText.trim() !== "") {
+      taskText.textContent = newText;
+  }
+}
+    </script>
+</body>
+</html>
